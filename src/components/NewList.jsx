@@ -16,14 +16,15 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const NewList = () => {
+const NewList = ({ category }) => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const respone = await axios.get('https://newsapi.org/v2/everything?q=tesla&from=2025-02-16&sortBy=publishedAt&apiKey=6d2a8dda301d4c37aab928d46dd6446a', );
+        const query = category === 'all' ? '' : `&category=${category}`; 
+        const respone = await axios.get(`https://newsapi.org/v2/everything?q=tesla&from=2025-02-16&sortBy=publishedAt${query}&apiKey=6d2a8dda301d4c37aab928d46dd6446a`, );
         setArticles(respone.data.articles);
       } catch (e) {
         console.log(e);
@@ -31,7 +32,7 @@ const NewList = () => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [category]);
 
   if (loading) {
     return <NewsListBlock>대기 중...</NewsListBlock>
