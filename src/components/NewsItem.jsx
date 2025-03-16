@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '../../node_modules/styled-components/dist/index';
+import styled from 'styled-components';
 
 const NewsItemBlock = styled.div`
   display: flex;
